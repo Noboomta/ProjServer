@@ -6,6 +6,7 @@ import (
 	"os"
 	"projserver/pkg/app"
 	"projserver/pkg/route"
+	"projserver/pkg/database"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
@@ -24,7 +25,9 @@ func main() {
 		AllowMethods: "GET,POST,HEAD,PUT,DELETE,PATCH",
 		AllowHeaders: "",
 	}))
-
+	
+	mysqlUri := os.Getenv("MYSQL_URI")
+	database.ConnectMySQL(mysqlUri)
 	route.SetupRouter(fiberApp)
 
 	// port
